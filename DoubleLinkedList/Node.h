@@ -11,6 +11,7 @@ public:
 	~Node<T>() = default;
 	
 public:
+	// Holds the actual value
 	T value;
 	// Points to the next node
 	Node<T>* next;
@@ -25,6 +26,9 @@ inline Node<T>::Node() : next(nullptr), previous(nullptr)
 }
 
 // Sets next and previous to null and stores the value
+// The code after : is called an initializer list
+// we use an initializer list to move in the variable by reference, it prevents constructors from running multiple times
+// It moves the things in instead of copying them in
 template<typename T>
 inline Node<T>::Node(T value) : next(nullptr), previous(nullptr), value(value)
 {
