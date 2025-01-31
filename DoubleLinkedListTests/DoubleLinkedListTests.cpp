@@ -51,7 +51,6 @@ namespace DoubleLinkedListTests
 			list.pushFront(3);
 			Assert::AreEqual(3, list.first());
 			// list.begin returns an iterator
-			//Assert::AreEqual(*(list.begin()++), 2);
 			Assert::AreEqual(2, (*(list.begin()++)));
 			Assert::AreEqual(1, list.last());
 			Assert::AreEqual(3, list.getLength());
