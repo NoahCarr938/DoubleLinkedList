@@ -199,11 +199,11 @@ template<typename T>
 inline bool List<T>::insert(const T& value, int index)
 {
 	// guard clause
-	if (index < 0 || index >= m_length)
+	if (index < 0 || index > m_length)
 		return false;
 
 	// If we dont have a tail or our index is 0
-	if (!m_tail || index = 0)
+	if (!m_tail || index == 0)
 	{
 		// We can just pushFront the value and return true
 		pushFront(value);
@@ -212,7 +212,7 @@ inline bool List<T>::insert(const T& value, int index)
 
 	// We know we have stuff in the list and we are not trying to add to the beginning
 	// Add to the end of the list
-	if (index == m_length - 1)
+	if (index == m_length)
 	{
 		// if our index is our last thing we just use pushback
 		// otherwise we would have to loop through the entire list
@@ -293,7 +293,7 @@ inline bool List<T>::remove(const T& value)
 		return false;
 
 	Node<T>* node = m_head->next;
-	while (node != m_tail->previous)
+	while (node != m_tail)
 	{
 		if (node->value == value)
 		{
