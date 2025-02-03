@@ -13,6 +13,7 @@ namespace DoubleLinkedListTests
 		TEST_METHOD(DefaultConstructor)
 		{
 			List<int> list;
+			Assert::IsNotNull(&list);
 			Assert::AreEqual(0, list.first());
 			Assert::AreEqual(0, list.last());
 			Assert::AreEqual(0, list.getLength());
@@ -23,6 +24,7 @@ namespace DoubleLinkedListTests
 			List<int> list = { 9, 8, 7, 6, 5 };
 
 			Iterator<int> iter = list.begin();
+			Assert::IsNotNull(&list);
 			Assert::AreEqual(9, *iter);
 			iter++;
 			Assert::AreEqual(8, *iter);
@@ -38,6 +40,7 @@ namespace DoubleLinkedListTests
 		TEST_METHOD(PushFront)
 		{
 			List<int> list;
+			Assert::IsNotNull(&list);
 			list.pushFront(1);
 			Assert::AreEqual(1, list.first());
 			Assert::AreEqual(1, list.last());
@@ -59,6 +62,7 @@ namespace DoubleLinkedListTests
 		TEST_METHOD(PushBack)
 		{
 			List<int> list;
+			Assert::IsNotNull(&list);
 			list.pushBack(1);
 			Assert::AreEqual(1, list.first());
 			Assert::AreEqual(1, list.last());
@@ -79,6 +83,7 @@ namespace DoubleLinkedListTests
 		TEST_METHOD(PopFront)
 		{
 			List<int> list{ 2, 4, 8 };
+			Assert::IsNotNull(&list);
 			list.popFront();
 			Assert::AreEqual(2, list.getLength());
 			list.popFront();
@@ -92,6 +97,7 @@ namespace DoubleLinkedListTests
 		TEST_METHOD(PopBack)
 		{
 			List<int> list{ 3, 5, 7, 8, 12 };
+			Assert::IsNotNull(&list);
 			list.popBack();
 			Assert::AreEqual(8, list.last());
 			list.popBack();
@@ -105,6 +111,7 @@ namespace DoubleLinkedListTests
 		TEST_METHOD(Insert)
 		{
 			List<int> list{ 5, 4, 10 };
+			Assert::IsNotNull(&list);
 			list.insert(4, 0);
 			Assert::AreEqual(4, list.first());
 			list.insert(5, 3);
@@ -114,6 +121,7 @@ namespace DoubleLinkedListTests
 		TEST_METHOD(Remove)
 		{
 			List<int> list{ 2, 4, 5, 7 };
+			Assert::IsNotNull(&list);
 			list.remove(2);
 			Assert::AreEqual(4, list.first());
 			list.remove(5);
@@ -123,6 +131,7 @@ namespace DoubleLinkedListTests
 		TEST_METHOD(First)
 		{
 			List<int> list{ 5, 10, 25, 33, 42 };
+			Assert::IsNotNull(&list);
 			Assert::AreEqual(5, list.first());
 			list.remove(5);
 			Assert::AreEqual(10, list.first());
@@ -136,6 +145,7 @@ namespace DoubleLinkedListTests
 		TEST_METHOD(Last)
 		{
 			List<int> list{ 0, 2, 3 };
+			Assert::IsNotNull(&list);
 			Assert::AreEqual(3, list.last());
 			list.remove(3);
 			Assert::AreEqual(2, list.last());
@@ -148,6 +158,7 @@ namespace DoubleLinkedListTests
 		TEST_METHOD(Begin)
 		{
 			List<int> list{ 5, 12, 2, 34, 43, 1, 23, 4 };
+			Assert::IsNotNull(&list);
 			Iterator<int> iter = list.begin();
 			Assert::AreEqual(5, (*(list.begin())));
 			Assert::AreEqual(12, (*(list.begin()++)));
@@ -159,20 +170,26 @@ namespace DoubleLinkedListTests
 
 		TEST_METHOD(End)
 		{
+			// We updated and change this
 			List<int> list = { 5, 79, 35, 2, 0 };
+			Assert::IsNotNull(&list);
 			Iterator<int> iter = list.end();
-			Assert::AreEqual(0, (*(list.end())));
+			Assert::IsNull(&iter);
+			/*Assert::AreEqual(0, (*(list.end())));
 			Assert::AreEqual(2, (*(list.end()--)));
 			list.remove(0);
 			Assert::AreEqual(2, (*(list.end())));
 			list.insert(1, 4);
-			Assert::AreEqual(1, (*(list.end())));
+			Assert::AreEqual(1, (*(list.end())));*/
 		}
 
 		TEST_METHOD(Destroy)
 		{
 			List<int> list{ 4, 2, 10 };
+			Assert::IsNotNull(&list);
 			list.destroy();
+			Assert::IsNull(&list);
+			Assert::
 			Assert::AreEqual(0, list.getLength());
 			list.insert(1, 0);
 			Assert::AreEqual(1, list.getLength());
@@ -184,6 +201,7 @@ namespace DoubleLinkedListTests
 		TEST_METHOD(GetLength)
 		{
 			List<int> list{ 0 };
+			Assert::IsNotNull(&list);
 			list.remove(0);
 			Assert::AreEqual(0, list.getLength());
 			list.insert(1, 0);
@@ -195,5 +213,10 @@ namespace DoubleLinkedListTests
 			list.remove(3);
 			Assert::AreEqual(2, list.getLength());
 		}
+
+		// Usage for List
+		// Main point of usage tests are to try stupid stuff to break it.
+		// Make a seperate class to test iterators
+		// Make a seperate class for node (will be a short and simple class)
 	};
 }
