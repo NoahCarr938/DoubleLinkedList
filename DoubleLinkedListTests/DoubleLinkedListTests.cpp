@@ -102,10 +102,11 @@ namespace DoubleLinkedListTests
 			Assert::AreEqual(8, list.last());
 			list.popBack();
 			Assert::AreEqual(3, list.getLength());
-			list.remove(7);
+			Assert::AreEqual(7, list.last());
+			//list.remove(7);
 			list.popBack();
 			Assert::AreEqual(3, list.first());
-			Assert::AreEqual(1, list.getLength());
+			Assert::AreEqual(2, list.getLength());
 		}
 
 		TEST_METHOD(Insert)
@@ -120,12 +121,85 @@ namespace DoubleLinkedListTests
 
 		TEST_METHOD(Remove)
 		{
-			List<int> list{ 2, 4, 5, 7 };
+			List<int> list{};
+			Assert::IsNotNull(&list);
+
+			list.pushBack(1);
+			list.pushBack(0);
+			list.pushBack(1);
+			list.pushBack(2);
+			list.pushBack(1);
+			list.pushBack(3);
+			list.pushBack(1);
+			Assert::AreEqual(7, list.getLength());
+			Iterator<int> iter = list.begin();
+			Assert::AreEqual(1, *iter);
+			iter++;
+			Assert::AreEqual(0, *iter);
+			iter++;
+			Assert::AreEqual(1, *iter);
+			iter++;
+			Assert::AreEqual(2, *iter);
+			iter++;
+			Assert::AreEqual(1, *iter);
+			iter++;
+			Assert::AreEqual(3, *iter);
+			iter++;
+			Assert::AreEqual(1, *iter);
+
+			// Normal remove, removes head and tail
+			int count = list.remove(1);
+			Assert::AreEqual(4, count);
+			Assert::AreEqual(3, list.getLength());
+			iter = list.begin();
+			Assert::AreEqual(*iter, list.first());
+			Assert::AreEqual(0, *iter);
+			iter++;
+			Assert::AreEqual(2, *iter);
+			iter++;
+			Assert::AreEqual(3, *iter);
+			iter++;
+			Assert::IsTrue(iter == nullptr);
+
+			// Removing value not present in the list
+			count = list.remove(5);
+			Assert::AreEqual(0, count);
+			Assert::AreEqual(3, list.getLength());
+			iter = list.begin();
+			Assert::AreEqual(0, *iter);
+			iter++;
+			Assert::AreEqual(2, *iter);
+			iter++;
+			Assert::AreEqual(3, *iter);
+
+			// Test for the entire list being the same value
+			list = List<int>();
+			Assert::IsNotNull(&list);
+			list.pushBack(3);
+			list.pushBack(3);
+			list.pushBack(3);
+			Assert::AreEqual(3, list.getLength());
+			iter = list.begin();
+			Assert::AreEqual(3, *iter);
+			iter++;
+			Assert::AreEqual(3, *iter);
+			iter++;
+			Assert::AreEqual(3, *iter);
+			list.remove(3);
+			count = list.remove(3);
+			Assert::AreEqual(0, list.getLength());
+			Assert::AreEqual(0, list.first());
+			Assert::AreEqual(0, list.last());
+
+			/*List<int> list{ 2, 4, 5, 5, 7 };
 			Assert::IsNotNull(&list);
 			list.remove(2);
 			Assert::AreEqual(4, list.first());
+			Assert::AreEqual(4, list.getLength());
 			list.remove(5);
-			Assert::AreEqual(2, list.getLength());
+			int count = list.remove(2);
+			Assert::AreEqual(2, count);
+			Assert::AreEqual(2, list.getLength());*/
 		}
 
 		TEST_METHOD(First)
@@ -175,12 +249,12 @@ namespace DoubleLinkedListTests
 			Assert::IsNotNull(&list);
 			Iterator<int> iter = list.end();
 			Assert::IsNull(&iter);
-			/*Assert::AreEqual(0, (*(list.end())));
+			Assert::AreEqual(0, (*(list.end())));
 			Assert::AreEqual(2, (*(list.end()--)));
 			list.remove(0);
 			Assert::AreEqual(2, (*(list.end())));
 			list.insert(1, 4);
-			Assert::AreEqual(1, (*(list.end())));*/
+			Assert::AreEqual(1, (*(list.end())));
 		}
 
 		TEST_METHOD(Destroy)
@@ -188,14 +262,14 @@ namespace DoubleLinkedListTests
 			List<int> list{ 4, 2, 10 };
 			Assert::IsNotNull(&list);
 			list.destroy();
-			// Is null is failing the test
-			//Assert::IsNull(&list);
 			Assert::AreEqual(0, list.getLength());
 			list.insert(1, 0);
 			Assert::AreEqual(1, list.getLength());
 			list.insert(2, 1);
 			list.destroy();
 			Assert::AreEqual(0, list.getLength());
+			// Is null is failing the test
+			Assert::IsNull(&list);
 		}
 
 		TEST_METHOD(GetLength)
@@ -228,14 +302,14 @@ namespace DoubleLinkedListTests
 			Assert::AreEqual(1, list.getLength());
 			for (size_t i = 0; i < 500; i++)
 			{
-				list.insert(0, 0);
+				list.insert(1, 0);
 			}
 			Assert::AreEqual(501, list.getLength());
-			for (size_t i = 0; i < 342; i++)
+			for (int i = 0; i < 500; i++)
 			{
-				list.remove(0);
+				list.remove(1);
 			}
-			Assert::AreEqual(159, list.getLength());
+			Assert::AreEqual(1, list.getLength());
 		}
 
 		TEST_METHOD(LinkedListUsageTest2)

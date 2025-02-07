@@ -24,7 +24,7 @@ public:
 	T popFront();
 	T popBack();
 	bool insert(const T& value, int index);
-	bool remove(const T& value);
+	int remove(const T& value);
 	// Not going to remove the thing they are just going to get you it
 	T first() const;
 	T last() const;
@@ -252,63 +252,82 @@ inline bool List<T>::insert(const T& value, int index)
 }
 
 template<typename T>
-inline bool List<T>::remove(const T& value)
+inline int List<T>::remove(const T& value)
 {
 	// Accounting for edge cases below
 	
 	// If there is nothing in the list then remove nothing
-	// If there is nothing in the list
+	// If there is nothing in the list, the list is empty
 	if (!m_tail)
-		return false;
+		return 0;
 
-	// Iterate over the stuff
-	//Node<T>* node = m_head;
-	// Loop through all of the nodes
-	// Using while our node has a next
-	// If there is one thing in the list
-	if (m_head->value == value)
+	int count = 0;
+
+
+	// Iterate and remove
+	Node<T>* node = m_head;
+	// If head value is the value to remove
+	// if node is not valid then dont run the rest of code
+	// while node is valid
+	while (node && node->value == value)
 	{
-		// If the value is in the head and the head is what we are looking for, pop the head and return true
 		popFront();
-		return true;
+		node = m_head;
+		count++;
 	}
-
-	// Check to make sure that our head is not our tail
-	/*if (!m_head == m_tail)
-		return false;*/
-
-	if(!m_head->next)
-		return false;
-
-	// We have established we have at least 2 things in the list
-	// Check the tail
-	if (m_tail->value == value)
+	
+	// Verify node is valid
+	// Then verify tail is valid
+	// If tail's next is nullptr
+	while (node && m_tail && node != m_tail->next)
 	{
-		// If the value is in the tail and the tail is what we are looking for, pop the tail and return true
-		popBack();
-		return true;
-	}
-
-	if (m_length <= 2)
-		return false;
-
-	Node<T>* node = m_head->next;
-	while (node != m_tail)
-	{
+		// If the node's value is the value to remove
 		if (node->value == value)
 		{
 			// if we find the node we want to unhook it 
+			// Remove node
+			// Unconnecting the previous and next nodes from ours we are trying to move.
+			// If node is not the head
+			if (node != m_head)
+			{
+				node->previous->next = node->next;
+			}
+			else
+			{
+				popFront();
+				node = m_head;
+				count++;
+				// If we removed the head, no need to check the tail
+				continue;
+			}
 			node->previous->next = node->next;
-			node->next->previous = node->previous;
-			m_length--;
-			delete node;
-			node = nullptr;
-			return true;
+			if (node != m_tail)
+			{
+				node->next->previous = node->previous;
+				// Making a temportary node pointer
+			    // Gives two pointers pointing to the same thing
+			    Node<T>*temp = node;
+				node = node->next;
+				delete temp;
+				// Decrement length
+				m_length--;
+				count++;
+			}
+			else
+			{
+				popBack();
+				node = m_tail;
+				count++;
+			}
+			
 		}
-		node = node->next;
+		else
+		{
+			node = node->next;
+		}
 	}
-	// If we get to the end and did not find anything return false
-	return false;
+	// If we get to the end and did not find anything return count
+	return count;
 }
 
 template<typename T>
