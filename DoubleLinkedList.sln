@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DoubleLinkedList", "DoubleL
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DoubleLinkedListTests", "DoubleLinkedListTests\DoubleLinkedListTests.vcxproj", "{06D78CD2-1F1E-4397-9696-6151F6962028}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ObjectPoolTests", "ObjectPoolTests\ObjectPoolTests.vcxproj", "{9A0AA7BC-9429-436B-9FA1-FAE94D07FA59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{06D78CD2-1F1E-4397-9696-6151F6962028}.Release|x64.Build.0 = Release|x64
 		{06D78CD2-1F1E-4397-9696-6151F6962028}.Release|x86.ActiveCfg = Release|Win32
 		{06D78CD2-1F1E-4397-9696-6151F6962028}.Release|x86.Build.0 = Release|Win32
+		{9A0AA7BC-9429-436B-9FA1-FAE94D07FA59}.Debug|x64.ActiveCfg = Debug|x64
+		{9A0AA7BC-9429-436B-9FA1-FAE94D07FA59}.Debug|x64.Build.0 = Debug|x64
+		{9A0AA7BC-9429-436B-9FA1-FAE94D07FA59}.Debug|x86.ActiveCfg = Debug|Win32
+		{9A0AA7BC-9429-436B-9FA1-FAE94D07FA59}.Debug|x86.Build.0 = Debug|Win32
+		{9A0AA7BC-9429-436B-9FA1-FAE94D07FA59}.Release|x64.ActiveCfg = Release|x64
+		{9A0AA7BC-9429-436B-9FA1-FAE94D07FA59}.Release|x64.Build.0 = Release|x64
+		{9A0AA7BC-9429-436B-9FA1-FAE94D07FA59}.Release|x86.ActiveCfg = Release|Win32
+		{9A0AA7BC-9429-436B-9FA1-FAE94D07FA59}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
