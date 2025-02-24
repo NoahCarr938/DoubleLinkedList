@@ -211,6 +211,39 @@ namespace DoubleLinkedListTests
 			Assert::AreEqual(0, list.last());
 		}
 
+		TEST_METHOD(Find)
+		{
+			List<int> list;
+			Assert::IsNotNull(&list);
+
+			list.pushBack(1);
+			list.pushBack(2);
+			list.pushBack(3);
+			list.pushBack(4);
+
+			Iterator<int> iter = list.begin();
+			Assert::AreEqual(1, *iter);
+			iter++;
+			Assert::AreEqual(2, *iter);
+			iter++;
+			Assert::AreEqual(3, *iter);
+			iter++;
+			Assert::AreEqual(4, *iter);
+
+			Iterator<int> findTestIter = list.find(1);
+			iter = list.begin();
+			Assert::AreEqual(*iter, *findTestIter);
+			findTestIter = list.find(2);
+			iter++;
+			Assert::AreEqual(*iter, *findTestIter);
+			findTestIter = list.find(3);
+			iter++;
+			Assert::AreEqual(*iter, *findTestIter);
+			findTestIter = list.find(4);
+			iter++;
+			Assert::AreEqual(*iter, *findTestIter);
+		}
+
 		TEST_METHOD(First)
 		{
 			List<int> list{ 5, 10, 25, 33, 42 };

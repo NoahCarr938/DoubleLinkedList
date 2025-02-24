@@ -25,6 +25,7 @@ public:
 	T popBack();
 	bool insert(const T& value, int index);
 	int remove(const T& value);
+	Iterator<T> find(const T& value);
 	// Not going to remove the thing they are just going to get you it
 	T first() const;
 	T last() const;
@@ -328,6 +329,17 @@ inline int List<T>::remove(const T& value)
 	}
 	// If we get to the end and did not find anything return count
 	return count;
+}
+
+template<typename T>
+inline Iterator<T> List<T>::find(const T& value)
+{
+	for (Iterator<T> iter = begin(); iter != end(); iter++)
+	{
+		if (*iter == value)
+			return iter;
+	}
+	return Iterator<T>();
 }
 
 template<typename T>
